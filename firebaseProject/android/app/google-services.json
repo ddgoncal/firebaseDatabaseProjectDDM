@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "939630801167",
-    "project_id": "shiftapp-87aff",
-    "storage_bucket": "shiftapp-87aff.appspot.com"
+    "project_number": "304337988018",
+    "project_id": "shiftapp-9b217",
+    "storage_bucket": "shiftapp-9b217.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:939630801167:android:b2315a430e7012b1c14e7a",
+        "mobilesdk_app_id": "1:304337988018:android:196aaca36f88ac7929dcab",
         "android_client_info": {
-          "package_name": "com.ddm.pdm.lab"
+          "package_name": "com.firebaseproject"
         }
       },
       "oauth_client": [
         {
-          "client_id": "939630801167-jquse5q7ls2l9k9n9on85laed23i11qd.apps.googleusercontent.com",
+          "client_id": "304337988018-fbv3uv6q5s6ob7nq8a20qau4idia9ki6.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAnsctVldl5FV3JEskLNMa3-JkR1tuFBlc"
+          "current_key": "AIzaSyAloox9kW_FpoRVjnbivbFVlOf5FtV2PFk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "939630801167-jquse5q7ls2l9k9n9on85laed23i11qd.apps.googleusercontent.com",
+              "client_id": "304337988018-fbv3uv6q5s6ob7nq8a20qau4idia9ki6.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
