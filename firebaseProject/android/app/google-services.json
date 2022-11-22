@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "939630801167",
+    "project_id": "shiftapp-87aff",
+    "storage_bucket": "shiftapp-87aff.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:939630801167:android:b2315a430e7012b1c14e7a",
+        "android_client_info": {
+          "package_name": "com.ddm.pdm.lab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "939630801167-jquse5q7ls2l9k9n9on85laed23i11qd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnsctVldl5FV3JEskLNMa3-JkR1tuFBlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "939630801167-jquse5q7ls2l9k9n9on85laed23i11qd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
