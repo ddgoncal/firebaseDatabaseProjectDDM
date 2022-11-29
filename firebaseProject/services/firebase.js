@@ -1,4 +1,6 @@
 import { firebase } from "@react-native-firebase/app";
+import auth from "@react-native-firebase/auth";
+import { addUser, clearUser } from "../reducers/currentUserSlice";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAloox9kW_FpoRVjnbivbFVlOf5FtV2PFk",
@@ -14,13 +16,13 @@ export const initializeFirebase = () => {
   }
 };
 
-export const checkAuthState = () => {
+export const initCheckAuthState = () => {
   console.log('Checking auth state');
-  firebase.auth().onAuthStateChanged(user => {
+  auth().onAuthStateChanged(user => {
     if (user) {
-      console.log('User logged in: ', user);
+      console.log('User is signed in');
     } else {
-      console.log('No user logged in');
+      console.log('User is signed out');
     }
   });
 };

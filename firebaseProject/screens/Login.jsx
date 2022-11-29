@@ -13,21 +13,27 @@ const Login = () => {
   const dispatch = useDispatch();
   const navigator = useNavigation();
 
+  const saveUser = (user) => {
+    const { email, uid, displayName } = user;
+    dispatch(addUser({ email, uid, displayName }));
+  }
+
   const loginUser = (email, password) => {
     auth().signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
-        dispatch(addUser(userCredential.user));
+        saveUser(userCredential.user);
         setIsLoading(false);
         setError('');
-        navigator.navigate('Home');
+        navigator.navigate('Auth');
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log("login falhou:  " + error);
         auth().createUserWithEmailAndPassword(email,password)
           .then((userCredential) => {
-            dispatch(addUser(userCredential.user));
+            saveUser(userCredential.user);
             setIsLoading(false);
             setError('');
-            navigator.navigate('Home');
+            navigator.navigate('Auth');
           })
           .catch(error => {
             setIsLoading(false);

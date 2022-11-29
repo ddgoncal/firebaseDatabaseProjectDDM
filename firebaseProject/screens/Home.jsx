@@ -1,19 +1,33 @@
-import { firebase } from '@react-native-firebase/auth';
-import { current } from '@reduxjs/toolkit';
+
 import React from 'react';
 import { Button, FlatList, Text, StyleSheet, } from 'react-native';
-import { useSelector } from 'react-redux';
+import auth from '@react-native-firebase/auth';
+import { firebase } from '@react-native-firebase/database';
+import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { clearUser } from '../reducers/currentUserSlice';
 
 const Home = () => {
   const currentUser = useSelector(state => state.currentUser);
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+
   //create user in firebase
   const createTask = () => {
-
+    console.log("create task");
+    firebase.app().database('https://shiftapp-9b217-default-rtdb.europe-west1.firebasedatabase.app/').ref('/tasks').set({
+      title: 'Teste',
+      description: 'Teste de descrição',
+    }).then(() => console.log('Added task!')).catch((error) => console.log(error));
   };
 
   //Logout user
   const logoutUser = () => {
-    firebase.auth().signOut();
+    auth().signOut().then(() => {
+      console.log('User signed out!');
+      dispatch(clearUser());
+      navigation.navigate('Login');
+    });
   };
 
   return (

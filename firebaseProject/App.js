@@ -1,30 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
-import Home from './screens/Home';
-import Details from './screens/Details';
-import { initializeFirebase, checkAuthState } from './services/firebase';
-import { firebase } from '@react-native-firebase/auth';
+import { initializeFirebase, initCheckAuthState } from './services/firebase';
 import { Provider } from 'react-redux';
 import { store } from './store';
 import Login from './screens/Login';
+import AuthNavigation from './navigation/AuthNavigation';
 
 const App = () => {
-  const [isUserLogged, setIsUserLogged] = useState(false);
   const Stack = createNativeStackNavigator();
 
   useEffect(() => {
     console.log('App mounted');
     initializeFirebase();
-    firebase.auth().onAuthStateChanged(user => setIsUserLogged(!!user));
+    initCheckAuthState();
   }, []);
 
   return (
     <Provider store={store}>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Details" component={Details} />
+        <Stack.Navigator
+          initialRouteName="Login"
+          screenOptions={{headerShown: false}}>
+          <Stack.Screen name="Auth" component={AuthNavigation} />
           <Stack.Screen name="Login" component={Login} />
         </Stack.Navigator>
       </NavigationContainer>
