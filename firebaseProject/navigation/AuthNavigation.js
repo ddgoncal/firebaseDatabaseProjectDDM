@@ -8,9 +8,9 @@ const AuthNavigation = props => {
   const Tab = createBottomTabNavigator();
 
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={Home} />
+    <Tab.Navigator initialRouteName="Home">
       <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Home" component={Home} />
       <Tab.Screen name="Account" component={Details} />
     </Tab.Navigator>
   );

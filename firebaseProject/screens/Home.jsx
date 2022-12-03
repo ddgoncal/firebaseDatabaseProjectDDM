@@ -1,25 +1,38 @@
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, FlatList, Text, StyleSheet, View } from 'react-native';
 import auth from '@react-native-firebase/auth';
 import { firebase } from '@react-native-firebase/database';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearUser } from '../reducers/currentUserSlice';
+import TaskModal from '../components/TaskModal';
+import TaskList from '../components/TaskList';
 
 const Home = () => {
   const currentUser = useSelector(state => state.currentUser);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [tasks, setTasks] = useState([]);
   const navigation = useNavigation();
   const dispatch = useDispatch();
 
-  //create user in firebase
   const createTask = () => {
-    console.log("create task");
-    firebase.app().database('https://shiftapp-9b217-default-rtdb.europe-west1.firebasedatabase.app/').ref('/tasks').set({
-      title: 'Teste',
-      description: 'Teste de descrição',
-    }).then(() => console.log('Added task!')).catch((error) => console.log(error));
+    setIsModalOpen(true);
   };
+
+  useEffect(() => {
+    //retrieve tasks for current user
+    const tasksRef = firebase.app().database('https://shiftapp-9b217-default-rtdb.europe-west1.firebasedatabase.app/').ref('/tasks');
+    const onLoadingListener = tasksRef.on('value', (snapshot) => {
+      console.log("A escuta de dados foi iniciada");
+      const data = snapshot.val();
+    });
+
+    // Stop listening for updates when no longer required
+    return () => {
+      tasksRef.off('value', onLoadingListener);
+    };
+  }, []);
 
   //Logout user
   const logoutUser = () => {
@@ -30,12 +43,19 @@ const Home = () => {
     });
   };
 
+  const renderItem = ({ item }) => (<TaskList description={item.description} date={item.date}/>);
+
   return (
     <>
     { currentUser.role === 'admin' && (
       <>
         <Text style={styles.title}>Welcome {currentUser.email}!</Text>
-        <FlatList />
+        <TaskModal modalVisible={isModalOpen} setModalVisible={setIsModalOpen}/>
+        <Text>Bem-Vindo {currentUser.email}</Text>
+        <FlatList
+          data={tasks}
+          renderItem={renderItem}
+          keyExtractor={item => item.uid}/>
         <View style={styles.buttonContainer}>
           <Button style={styles.createTaskButton} title="Create Task" onPress={createTask} />
           <View style={styles.space} />
