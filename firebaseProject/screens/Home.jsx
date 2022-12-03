@@ -32,13 +32,24 @@ const Home = () => {
 
   return (
     <>
-    <Text style={styles.title}>Welcome {currentUser.email}!</Text>
-    <FlatList />
-    <View style={styles.buttonContainer}>
-      <Button style={styles.createTaskButton} title="Create Task" onPress={createTask} />
-      <View style={styles.space} />
-      <Button style={styles.logout_button} title="Logout" onPress={logoutUser} />
-    </View>
+    { currentUser.role === 'admin' && (
+      <>
+        <Text style={styles.title}>Welcome {currentUser.email}!</Text>
+        <FlatList />
+        <View style={styles.buttonContainer}>
+          <Button style={styles.createTaskButton} title="Create Task" onPress={createTask} />
+          <View style={styles.space} />
+          <Button style={styles.logout_button} title="Logout" onPress={logoutUser} />
+        </View>
+      </>
+    )}
+    { currentUser.role !== 'admin' && (
+      <>
+        <Text style={styles.title}>Welcome {currentUser.email}!</Text>
+        <Text> I cannot do anything</Text>
+        <Button style={styles.logout_button} title="Logout" onPress={logoutUser} />
+      </>
+    )}
     </>
   )
 }

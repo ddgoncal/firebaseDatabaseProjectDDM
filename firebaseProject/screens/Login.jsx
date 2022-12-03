@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
-import { Button, Dimensions, TextInput, View, StyleSheet, Alert } from 'react-native';
+import { Button, Dimensions, TextInput, View, StyleSheet, Alert, ActivityIndicator, Text } from 'react-native';
 import auth from '@react-native-firebase/auth';
+import { firebase } from '@react-native-firebase/database';
 import { addUser } from '../reducers/currentUserSlice';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
@@ -15,10 +16,24 @@ const Login = () => {
 
   const saveUser = (user) => {
     const { email, uid, displayName } = user;
-    dispatch(addUser({ email, uid, displayName }));
+    dispatch(addUser({ email, uid, displayName, role: 'admin' }));
   }
 
+  const createUserInFirebaseDatabase = (user) => {
+    const { email, uid, displayName } = user;
+    let userToSave = { email, uid, displayName, role: 'admin' };
+    firebase.app().database('https://shiftapp-9b217-default-rtdb.europe-west1.firebasedatabase.app/')
+      .ref(`/users/${uid}`)
+      .set(userToSave).then(() => {
+        console.log('User added!');
+        navigator.navigate('Auth');
+      }).catch((error) => {
+        console.log(error);
+      });
+  };
+
   const loginUser = (email, password) => {
+    setIsLoading(true);
     auth().signInWithEmailAndPassword(email, password)
       .then((userCredential) => {
         saveUser(userCredential.user);
@@ -33,12 +48,11 @@ const Login = () => {
             saveUser(userCredential.user);
             setIsLoading(false);
             setError('');
-            navigator.navigate('Auth');
+            createUserInFirebaseDatabase(userCredential.user);
           })
           .catch(error => {
             setIsLoading(false);
             setError(error.message);
-            Alert.alert(error.message);
           });
       });
   };
@@ -58,7 +72,7 @@ const Login = () => {
         placeholder='enter password'
         value={password}
         onChangeText={password => setPassword(password)}
-        secureTextEntry={true}
+        secureTextEntry
       />
       {
         isLoading ?
@@ -69,9 +83,10 @@ const Login = () => {
           /> :
           <Button
             onPress={() => loginUser(email, password)}
-            title={error || 'Sign In'}
+            title={'Sign In'}
           />
       }
+      { error && <Text style={styles.error}>{error}</Text> }
     </View>
   )
 }
@@ -89,6 +104,10 @@ const styles = StyleSheet.create({
     display: 'flex',
     justifyContent: 'flex-start',
     alignItems: 'center'
+  },
+  error: {
+    color: 'red',
+    marginTop: 20
   }
 })
 

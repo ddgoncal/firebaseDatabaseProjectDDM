@@ -19,11 +19,13 @@ export const currentUserSlice = createSlice({
       state.email = action.payload.email;
       state.id = action.payload.uid;
       state.name = action.payload.displayName;
+      state.role = action.payload.role;
     },
     clearUser: state => {
       state.email = '';
       state.id = '';
       state.name = '';
+      state.role = '';
     },
     changeRole: (state, action) => {
       state.role = action.payload;
