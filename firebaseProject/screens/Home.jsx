@@ -26,6 +26,11 @@ const Home = () => {
     const onLoadingListener = tasksRef.on('value', (snapshot) => {
       console.log("A escuta de dados foi iniciada");
       const data = snapshot.val();
+      const loadedTasks = [];
+      for (let key in data) {
+        loadedTasks.push(data[key]);
+      }
+      setTasks(loadedTasks)
     });
 
     // Stop listening for updates when no longer required
@@ -51,7 +56,6 @@ const Home = () => {
       <>
         <Text style={styles.title}>Welcome {currentUser.email}!</Text>
         <TaskModal modalVisible={isModalOpen} setModalVisible={setIsModalOpen}/>
-        <Text>Bem-Vindo {currentUser.email}</Text>
         <FlatList
           data={tasks}
           renderItem={renderItem}

@@ -9,9 +9,11 @@ const TaskModal = ({modalVisible, setModalVisible}) => {
   const [date, setDate] = React.useState(new Date())
 
   const handleSave = () => {
-    firebase.app().database('https://shiftapp-9b217-default-rtdb.europe-west1.firebasedatabase.app/').ref('/tasks').set({
+    firebase.app().database('https://shiftapp-9b217-default-rtdb.europe-west1.firebasedatabase.app/').ref('/tasks')
+    .push()
+    .set({
       description: description,
-      date: date,
+      date: date.toDateString(),
     }).then(() => {
       console.log('Added task!')
       Alert.alert('Task created successfully!');
