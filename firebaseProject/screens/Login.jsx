@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Button, Dimensions, TextInput, View, StyleSheet, Alert, ActivityIndicator, Text } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import { firebase } from '@react-native-firebase/database';
+import firebase from 'firebase/app';
 import { addUser } from '../reducers/currentUserSlice';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';

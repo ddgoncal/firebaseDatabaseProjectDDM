@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { Button, FlatList, Text, StyleSheet, View } from 'react-native';
 import auth from '@react-native-firebase/auth';
-import { firebase } from '@react-native-firebase/database';
+import firebase from 'firebase/app';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 import { clearUser } from '../reducers/currentUserSlice';

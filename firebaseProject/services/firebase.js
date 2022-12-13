@@ -1,5 +1,4 @@
-import { firebase } from "@react-native-firebase/app";
-import auth from "@react-native-firebase/auth";
+import firebase from 'firebase/app';
 import { addUser, clearUser } from "../reducers/currentUserSlice";
 
 const firebaseConfig = {
@@ -18,7 +17,7 @@ export const initializeFirebase = () => {
 
 export const initCheckAuthState = () => {
   console.log('Checking auth state');
-  auth().onAuthStateChanged(user => {
+  firebase.auth().onAuthStateChanged(user => {
     if (user) {
       console.log('User is signed in');
     } else {

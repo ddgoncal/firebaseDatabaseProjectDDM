@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { Modal, View, Text, TouchableHighlight, StyleSheet, TextInput, Alert } from 'react-native';
-import { firebase } from '@react-native-firebase/database';
+import firebase from 'firebase/app';
 import DatePicker from 'react-native-date-picker';
 
 const TaskModal = ({modalVisible, setModalVisible}) => {
